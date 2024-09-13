@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<h1>타임리프 익히기</h1>
+
+<!-- 오늘 날짜 표시 -->
+<p th:text="${#temporals.format(today, 'yyyy-MM-dd')}"></p>
+
+<!-- Person 객체의 데이터 표시 -->
+<div th:object="${person}">
+    <!-- 문자열 결합 수정: 작은 따옴표로 문자열을 감싸고, + 연산자로 결합 -->
+    <p th:text="'이름 : ' + *{name}"></p>
+    <p th:text="'나이 : ' + *{age}"></p>
+
+    <p>취미</p>
+    <ul th:each="hobby : *{hobbies}">
+        <!-- 취미 출력 -->
+        <li th:text="${hobby}"></li>
+        <!-- 대표 취미 표시 -->
+        <span th:if="${hobby == '운동'}">(대표 취미)</span>
+    </ul>
+</div>
+
+<!-- 글 보기 링크 -->
+<a th:href="@{/api/articles/{id}(id=${person.id})}">글 보기</a>
+</body>
+</html>
